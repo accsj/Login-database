@@ -29,6 +29,7 @@ class Menu:
 
 # Criando a função registrar.
     def Registroandlogin(self):
+
 # Abrindo conexão para validar email e usuário e fechando posteriormente.
         connect = pyodbc.connect(dados)
         c = connect.cursor()
@@ -43,12 +44,11 @@ class Menu:
             connect.close()
 
         email = str(input("Digite o seu email:"))
-
 # Repetição de limitador de caractere para o email.       
         while len(email):
-            if 5 < len(email) < 25:
+            if 6 < len(email) < 31:
                 for linha in colunas:
-                    if (email == linha[0]):
+                    if (email == linha[1]):
                         print("\nO email já está sendo utilizado.")
                         return Menu.Registroandlogin([])
                     elif email == "":
@@ -56,26 +56,26 @@ class Menu:
                         return Menu.Registroandlogin([])
                 break
             else:
-                print("\nO email deve conter entre 6 e 15 caracteres.")
+                print("\nO email deve conter entre 5 e 30 caracteres.\n")
                 return Menu.Registroandlogin([])
             
         username = str(input("Digite seu nome de usuário:"))
 # Repetição de limitador de caractere para usuário.
         while len(username):
-            if 3 < len(username) < 20:
+            if 4 < len(username) < 26:
                 for linha in colunas:
-                    if (username == linha[1]):
-                        print("Usuário já existente.")
+                    if (username == linha[2]):
+                        print("\nUsuário já existente.\n")
                         return Menu.Registroandlogin([])
                     elif username == "":
                         print("\nDigite um usuário válido.\n")
                         return Menu.Registroandlogin([])
+                break
             else:
-                print("O usuário deve conter entre 6 e 15 caracteres.")
+                print("\nO email deve conter entre 4 e 25 caracteres.\n")
                 return Menu.Registroandlogin([])
 
         senha = stdiomask.getpass(prompt='Senha:', mask='*',) 
-
 # Repetição de limitador de caractere.
         while len(senha):
             if 5 < len(senha) < 16:
@@ -83,22 +83,22 @@ class Menu:
                 if 5 < len(senha2) < 16:
                     break
                 else:
-                    print("A senha deve conter entre 6 e 15 caracteres.")
+                    print("\nA senha deve conter entre 6 e 15 caracteres.\n")
                 return 
             else:
-                print("A senha deve conter entre 6 e 15 caracteres.")
+                print("\nA senha deve conter entre 6 e 15 caracteres.\n")
                 return 
         if senha2 != senha:
-            print("Senhas diferentes, tente novamente.\n")
+            print("\nSenhas diferentes, tente novamente.\n")
         else:
-            print("Registrado com sucesso.\n")
+            print("\nRegistrado com sucesso.\n")
 
 # Abrindo conexão para inserir dados na tabela e posteriormente encerrando-a.
         connect = pyodbc.connect(dados)
         c = connect.cursor()
-        inserir = f"""INSERT INTO contas(email, usuario, senha, data_registro)
+        inserir = f"""INSERT INTO contas(id, email, usuario, senha, data_registro)
         VALUES
-        ('{email}', '{username}', '{senha2}', '{date}')"""
+        ('{''}', '{email}', '{username}', '{senha2}', '{date}')"""
         try:
             if senha2 == senha:
                 c.execute(inserir)
@@ -129,14 +129,13 @@ class Menu:
             connect.close()
         while True:
             for linha in colunas:
-                if (login == linha[1] or [0]) and (senha == linha[2]):
-                    print("Seja bem-vindo\n Enjoy"), exit()
+                if (login == linha[2] or [1]) and (senha == linha[3]):
+                    print("Seja bem-vindo\n \nEnjoy\n"), exit()
                     break
             for linha in colunas:
-                if (login != linha[1]) and (senha != linha[2]):
+                if (login != linha[1]) and (senha != linha[3]):
                     print("\nUsuário ou senha errados.\n")
                     return
-
 
 # Repetição para o código funcionar.
 while True:
