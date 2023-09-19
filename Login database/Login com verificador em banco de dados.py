@@ -46,7 +46,7 @@ class Menu:
         email = str(input("Digite o seu email:"))
 # Repetição de limitador de caractere para o email.       
         while len(email):
-            if 6 < len(email) < 31:
+            if 21 < len(email) < 31:
                 for linha in colunas:
                     if (email == linha[1]):
                         print("\nO email já está sendo utilizado.")
